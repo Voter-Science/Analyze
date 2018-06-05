@@ -1,0 +1,20 @@
+{
+  "name": "trc-analyze",
+  "version": "1.0.0",
+  "description": "common analyzation routines for TRC ",
+  "main": "index.js",
+  "scripts": {
+    "build": "del *.d.ts && tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "trc-core": "^1.0.0",
+    "trc-httpshim": "^1.2.0",
+    "trc-sheet": "^1.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.9.1"
+  }
+}
