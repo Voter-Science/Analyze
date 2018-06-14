@@ -10,10 +10,15 @@ import * as hh from './household'
 export class Cluster {
     private _time: bcl.TimeRange;
     private _recIds: bcl.HashCount = new bcl.HashCount();
+    private _versions : bcl.Range<Number>;
 
     public constructor(startTime: Date) {
         this._time = new bcl.TimeRange(startTime, startTime);
     }
+
+    // Get range of versions that make up this cluster. 
+    // Not all versions within this range are included. (for example, versions from other users)
+    public getVersionRange() : bcl.Range<Number> { return this._versions; }    
 
     // Timespan for this cluster
     public getTimeRange(): bcl.TimeRange { return this._time; }
@@ -38,11 +43,15 @@ export class Cluster {
         long: string,
         timestamp: Date) {
 
+        if (!this._versions) {
+            this._versions = new bcl.Range<Number>(version, version);
+        } else {
+            this._versions.expandToInclude(version);
+        }
+
         this._recIds.Add(recId);
         this._time.expandToInclude(timestamp);
-
     }
-
 }
 
 

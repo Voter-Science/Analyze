@@ -1,18 +1,19 @@
 // Simple collection interfaces 
 
-export class TimeRange 
-{       
-    private _start : Date;
-    private _end : Date;
 
-    public constructor(start :Date, end : Date)
+export class Range<T>
+{
+    protected _start : T;
+    protected _end : T;
+
+    public constructor(start :T, end : T)
     {
         this._start = start;
         this._end = end;
     }
 
     // Expand this instance to include the given time. 
-    public expandToInclude(time :Date) {
+    public expandToInclude(time :T) {
         if (time < this._start) {
             this._start = time;
         }
@@ -21,9 +22,12 @@ export class TimeRange
         }
     }
 
-    public getStart() : Date { return this._start; }
-    public getEnd() : Date { return this._end; }
+    public getStart() : T { return this._start; }
+    public getEnd() : T { return this._end; }
+}
 
+export class TimeRange extends Range<Date>
+{   
     public getDurationSeconds() : number { 
         var diffMS = this._end.valueOf() - this._start.valueOf();
         return diffMS / 1000;
